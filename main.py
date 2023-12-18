@@ -3,7 +3,7 @@ from exception import CommandError
 
 def main():
     print('% cssh')
-    commandListe = ["ls", "pwd", "cat"]
+    commandListe = ["ls", "pwd", "cat", "cd"]
     userCommand = getCommandFromUSer()
     while(userCommand[0] != "exit"):
         try:
@@ -15,13 +15,19 @@ def main():
 
             if(userCommand[0] == "pwd"):
                 pwd(getNbArgs(userCommand=userCommand))
-                
+
             if(userCommand[0] == "cat"):
                 if(len (userCommand) == 2):
                     cat(userCommand[1], getNbArgs(userCommand=userCommand))
                 else:
                     raise ArgumentError(1,getNbArgs(userCommand=userCommand))
-                                   
+
+            if(userCommand[0] == "cd"):
+                if(len(userCommand) == 2):
+                    cd(userCommand[1], getNbArgs(userCommand=userCommand))
+                else:
+                    raise ArgumentError(1, getNbArgs(userCommand=userCommand))
+                  
         except CommandError as e:
             print("Error: ", e)
             

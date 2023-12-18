@@ -12,7 +12,8 @@ def ls(argsNumber):
 def pwd(argsNumber):
     if(argsNumber != 0):
         raise ArgumentError(0,argsNumber)
-    print(os.getcwd())
+    print (os.getcwd())
+    return(os.getcwd())
 
 def cat(filePath, argsNumber):
     if(argsNumber != 1):
@@ -23,3 +24,14 @@ def cat(filePath, argsNumber):
             print(file_contents)
     except FileNotFoundError as e:
         print(e)
+
+def cd(filePath, argsNumber):
+    newDir = os.getcwd()
+    if(argsNumber != 1):
+        raise ArgumentError(1, argsNumber)
+    if(filePath == ".."):
+        strToRemove = len(newDir.split("/")[-1])
+        newDir = newDir[:-strToRemove]
+    else:
+        newDir += "/"+ filePath
+    os.chdir(newDir)
